@@ -1,7 +1,21 @@
+import 'package:todos_api/todos_api.dart';
+
 /// {@template todos_api}
 /// API package with interface and modesl for providing access to todos
 /// {@endtemplate}
-class TodosApi {
+abstract class TodosApi {
   /// {@macro todos_api}
   const TodosApi();
+
+  Stream<List<Todo>> getTodos();
+
+  Future<void> saveTodo(Todo todo);
+
+  Future<void> deleteTodo(String id);
+
+  Future<int> clearTodos();
 }
+
+class Todo {}
+
+class TodoNotFoundException implements Exception {}

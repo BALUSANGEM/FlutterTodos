@@ -19,6 +19,9 @@ class LocalStorageTodosApi extends TodosApi {
 
   String? _getValue(String key) => _plugin.getString(key);
 
+  Future<void> _setValue(String key, String value) =>
+      _plugin.setString(key, value);
+
   void _init() {
     final todosJson = _getValue(tododsCollectionKey);
     if (todosJson != null) {
@@ -33,4 +36,17 @@ class LocalStorageTodosApi extends TodosApi {
 
   @override
   Stream<List<Todo>> getTodos() => _todoStreamController.asBroadcastStream();
+
+  @override
+  Future<void> saveTodo(Todo todo) {
+    final todos = [..._todoStreamController.value];
+    final todoIndex = todos.indexWhere((to) => to.id == todo.id);
+    if (todoIndex >= 0) {
+      todos[todoIndex] = todo;
+    } else {
+      todos.add(todo);
+    }
+    _todoStreamController.add(todos);
+    return _setValue(tododsCollectionKey, json.encode(todos));
+  }
 }

@@ -31,4 +31,6 @@ class LocalStorageTodosApi extends TodosApi {
     }
   }
 
+  @override
+  Stream<List<Todo>> getTodos() => _todoStreamController.asBroadcastStream();
 }

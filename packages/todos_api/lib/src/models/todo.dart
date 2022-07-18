@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
-import 'package:todos_api/src/json_map.dart';
+import 'package:todos_api/src/models/json_map.dart';
 import 'package:uuid/uuid.dart';
 
 part 'todo.g.dart';

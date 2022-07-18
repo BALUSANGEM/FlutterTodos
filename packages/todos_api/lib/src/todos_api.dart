@@ -1,4 +1,4 @@
-import 'package:todos_api/todos_api.dart';
+import 'package:todos_api/src/models/models.dart';
 
 /// {@template todos_api}
 /// API package with interface and modesl for providing access to todos
@@ -15,7 +15,5 @@ abstract class TodosApi {
 
   Future<int> clearTodos();
 }
-
-class Todo {}
 
 class TodoNotFoundException implements Exception {}

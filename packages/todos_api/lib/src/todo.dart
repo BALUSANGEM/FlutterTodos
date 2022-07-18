@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
+import 'package:todos_api/src/json_map.dart';
 import 'package:uuid/uuid.dart';
 
 part 'todo.g.dart';
@@ -41,9 +42,9 @@ class Todo extends Equatable {
     );
   }
 
-  static Todo fromJson(Map<String, dynamic> json) => _$TodoFromJson(json);
+  static Todo fromJson(JsonMap json) => _$TodoFromJson(json);
 
-  Map<String, dynamic> toJson() => _$TodoToJson(this);
+  JsonMap toJson() => _$TodoToJson(this);
 
   @override
   List<Object> get props => [id, title, description, isCompleted];

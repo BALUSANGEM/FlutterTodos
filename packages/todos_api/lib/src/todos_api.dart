@@ -13,7 +13,7 @@ abstract class TodosApi {
 
   Future<void> deleteTodo(String id);
 
-  Future<int> clearTodos();
+  Future<int> clearCompletedTodos();
 }
 
 class TodoNotFoundException implements Exception {}

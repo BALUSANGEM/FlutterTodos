@@ -9,9 +9,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_todos/counter/counter.dart';
 import 'package:flutter_todos/l10n/l10n.dart';
+import 'package:todos_repository/todos_repository.dart';
 
 class App extends StatelessWidget {
-  const App({super.key});
+  const App({
+    super.key,
+    required this.todosRepository,
+  });
+
+  final TodosRepository todosRepository;
 
   @override
   Widget build(BuildContext context) {

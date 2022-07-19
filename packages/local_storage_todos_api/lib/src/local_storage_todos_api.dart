@@ -49,4 +49,17 @@ class LocalStorageTodosApi extends TodosApi {
     _todoStreamController.add(todos);
     return _setValue(tododsCollectionKey, json.encode(todos));
   }
+
+  @override
+  Future<void> deleteTodo(String id) async {
+    final todos = [..._todoStreamController.value];
+    final todoIndex = todos.indexWhere((to) => to.id == id);
+    if (todoIndex == -1) {
+      throw TodoNotFoundException();
+    } else {
+      todos.removeAt(todoIndex);
+      _todoStreamController.add(todos);
+      return _setValue(tododsCollectionKey, json.encode(todos));
+    }
+  }
 }

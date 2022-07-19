@@ -1,7 +1,7 @@
-/// {@template todos_repository}
-/// A repository that handles todo related requests.
-/// {@endtemplate}
+import 'package:todos_api/todos_api.dart';
+
 class TodosRepository {
-  /// {@macro todos_repository}
-  const TodosRepository();
+  final TodosApi _todosApi;
+
+  const TodosRepository({required TodosApi todosApi}) : _todosApi = todosApi;
 }

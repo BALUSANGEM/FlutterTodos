@@ -24,9 +24,15 @@ class HomeView extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        key: const Key('home_view_add_todo_fab'),
-        onPressed: () => {},
-        child: const Icon(Icons.add)
+          key: const Key('home_view_add_todo_fab'),
+          onPressed: () => {},
+          child: const Icon(Icons.add)),
+      bottomNavigationBar: BottomAppBar(
+        shape: const CircularNotchedRectangle(),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: const [Icon(Icons.add), Icon(Icons.add)],
+        ),
       ),
     );
   }

@@ -30,10 +30,34 @@ class HomeView extends StatelessWidget {
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: const [Icon(Icons.add), Icon(Icons.add)],
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: const [
+            _HomeTabButton(icon: Icon(Icons.list_rounded), tab: HomeTab.todos),
+            _HomeTabButton(
+                icon: Icon(Icons.show_chart_rounded), tab: HomeTab.stats),
+          ],
         ),
       ),
+    );
+  }
+}
+
+class _HomeTabButton extends StatelessWidget {
+  const _HomeTabButton({
+    super.key,
+    required this.icon,
+    required this.tab,
+  });
+
+  final Widget icon;
+  final HomeTab tab;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: () => context.read<HomeCubit>().setTab(tab),
+      iconSize: 32,
+      icon: icon,
     );
   }
 }

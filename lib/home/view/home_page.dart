@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_todos/home/home_cubit.dart';
+import 'home_tab_button.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -31,33 +32,18 @@ class HomeView extends StatelessWidget {
         shape: const CircularNotchedRectangle(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: const [
-            _HomeTabButton(icon: Icon(Icons.list_rounded), tab: HomeTab.todos),
-            _HomeTabButton(
-                icon: Icon(Icons.show_chart_rounded), tab: HomeTab.stats),
+          children: [
+            HomeTabButton(
+                icon: const Icon(Icons.list_rounded),
+                tab: HomeTab.todos,
+                selectedTab: selectedTab),
+            HomeTabButton(
+                icon: const Icon(Icons.show_chart_rounded),
+                tab: HomeTab.stats,
+                selectedTab: selectedTab),
           ],
         ),
       ),
-    );
-  }
-}
-
-class _HomeTabButton extends StatelessWidget {
-  const _HomeTabButton({
-    super.key,
-    required this.icon,
-    required this.tab,
-  });
-
-  final Widget icon;
-  final HomeTab tab;
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: () => context.read<HomeCubit>().setTab(tab),
-      iconSize: 32,
-      icon: icon,
     );
   }
 }

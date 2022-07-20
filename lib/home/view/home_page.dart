@@ -22,6 +22,12 @@ class HomeView extends StatelessWidget {
         index: selectedTab.index,
         children: const [EmptyPage()],
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        key: const Key('home_view_add_todo_fab'),
+        onPressed: () => {},
+        child: const Icon(Icons.add)
+      ),
     );
   }
 }

@@ -12,4 +12,7 @@ class TodosRepository {
   Future<void> deleteTodo(String id) => _todosApi.deleteTodo(id);
 
   Future<int> clearCompleted() => _todosApi.clearCompletedTodos();
+
+  Future<int> completeAll({required bool isCompleted}) =>
+      _todosApi.completeAll(isCompleted: isCompleted);
 }

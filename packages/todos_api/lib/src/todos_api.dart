@@ -14,6 +14,8 @@ abstract class TodosApi {
   Future<void> deleteTodo(String id);
 
   Future<int> clearCompletedTodos();
+
+  Future<int> completeAll({required bool isCompleted});
 }
 
 class TodoNotFoundException implements Exception {}

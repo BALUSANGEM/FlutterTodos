@@ -2,7 +2,7 @@ part of 'todos_overview_bloc.dart';
 
 enum TodoOverviewStatus { initial, loading, success, failure }
 
-class TodosOverViewState {
+class TodosOverViewState extends Equatable {
   const TodosOverViewState({
     this.status = TodoOverviewStatus.initial,
     this.todos = const [],
@@ -24,4 +24,11 @@ class TodosOverViewState {
       lastDeletedTodo: lastDeletedTodo ?? this.lastDeletedTodo,
     );
   }
+
+  @override
+  List<Object?> get props => [
+        status,
+        todos,
+        lastDeletedTodo,
+      ];
 }

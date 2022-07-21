@@ -1,9 +1,9 @@
-import 'package:todos_repository/todos_repository.dart';
+part of 'todos_overview_bloc.dart';
 
 enum TodoOverviewStatus { initial, loading, success, failure }
 
-class TodoOverviewState {
-  const TodoOverviewState({
+class TodosOverViewState {
+  const TodosOverViewState({
     this.status = TodoOverviewStatus.initial,
     this.todos = const [],
     this.lastDeletedTodo,

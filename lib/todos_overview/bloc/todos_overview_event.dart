@@ -1,4 +1,4 @@
-import 'package:todos_api/todos_api.dart';
+part of 'todos_overview_bloc.dart';
 
 abstract class TodosOverviewEvent {}
 

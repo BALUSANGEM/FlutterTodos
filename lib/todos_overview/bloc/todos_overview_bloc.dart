@@ -15,6 +15,7 @@ class TodosOverviewBloc extends Bloc<TodosOverviewEvent, TodosOverViewState> {
     on<TodosOverviewSubscriptionRequested>(_onSubscriptionRequested);
     on<TodosOverviewCompletionToggled>(_onTodoCompletionToggled);
     on<TodosOverviewTodoDeleted>(_onTodoDeleted);
+    on<TodosOverviewUndoDeletionRequested>(_onTodoUndoDeleted);
   }
 
   final TodosRepository _todosRepository;
@@ -39,16 +40,25 @@ class TodosOverviewBloc extends Bloc<TodosOverviewEvent, TodosOverViewState> {
   FutureOr<void> _onTodoCompletionToggled(
     TodosOverviewCompletionToggled event,
     Emitter<TodosOverViewState> emit,
-  ) {
+  ) async {
     final updatedTodo = event.todo.copyWith(isCompleted: event.isCompleted);
-    _todosRepository.saveTodo(updatedTodo);
+    await _todosRepository.saveTodo(updatedTodo);
   }
 
   FutureOr<void> _onTodoDeleted(
     TodosOverviewTodoDeleted event,
     Emitter<TodosOverViewState> emit,
-  ) {
+  ) async {
     emit(state.copyWith(lastDeletedTodo: event.todo));
-    _todosRepository.deleteTodo(event.todo.id);
+    await _todosRepository.deleteTodo(event.todo.id);
+  }
+
+  FutureOr<void> _onTodoUndoDeleted(
+    TodosOverviewUndoDeletionRequested event,
+    Emitter<TodosOverViewState> emit,
+  ) async {
+    final todo = state.lastDeletedTodo!;
+    emit(state.copyWith(lastDeletedTodo: null));
+    await _todosRepository.saveTodo(todo);
   }
 }

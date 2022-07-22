@@ -33,8 +33,11 @@ class TodosOverviewView extends StatelessWidget {
             listenWhen: (previous, current) =>
                 previous.status != current.status,
             listener: (context, state) {
-              print('Block changed status: ${state.status}');
-              print('Block changed status: ${state.todos}');
+              if(state.status == TodoOverviewStatus.failure) {
+                ScaffoldMessenger.of(context)
+                    ..hideCurrentSnackBar()
+                    ..showSnackBar(const SnackBar(content: Text('Error!')));
+              }
             },
           )
         ],

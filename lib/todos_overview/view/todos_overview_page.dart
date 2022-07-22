@@ -82,7 +82,16 @@ class TodosOverviewView extends StatelessWidget {
             return CupertinoScrollbar(
                 child: ListView(
               children: [
-                for (final todo in state.todos) TodoListTitle(todo: todo)
+                for (final todo in state.todos)
+                  TodoListTitle(
+                    todo: todo,
+                    onDismissed: (_) {
+
+                    },
+                    onToggleCompleted: (_) {
+
+                    },
+                  )
               ],
             ));
           },
@@ -93,12 +102,26 @@ class TodosOverviewView extends StatelessWidget {
 }
 
 class TodoListTitle extends StatelessWidget {
-  const TodoListTitle({super.key, required this.todo});
+  const TodoListTitle({
+    super.key,
+    required this.todo,
+    this.onToggleCompleted,
+    this.onDismissed,
+  });
 
   final Todo todo;
+  final ValueChanged<bool>? onToggleCompleted;
+  final DismissDirectionCallback? onDismissed;
 
   @override
   Widget build(BuildContext context) {
-    return Text(todo.title);
+    final theme = Theme.of(context);
+    final captionColor = theme.textTheme.caption?.color;
+    return Dismissible(
+      key: Key('todolist_title_dismissable_${todo.id}'),
+      onDismissed: onDismissed,
+      direction: DismissDirection.endToStart,
+      child: Text(todo.title),
+    );
   }
 }

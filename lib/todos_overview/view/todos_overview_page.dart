@@ -64,12 +64,19 @@ class TodosOverviewView extends StatelessWidget {
           )
         ],
         child: BlocBuilder<TodosOverviewBloc, TodosOverViewState>(
-          builder: (context, state) {
+          builder: (contexts, state) {
             if (state.todos.isEmpty) {
               if (state.status == TodoOverviewStatus.loading) {
                 return const Center(child: CupertinoActivityIndicator());
+              } else if (state.status != TodoOverviewStatus.success) {
+                return const SizedBox();
               } else {
-                return const Center(child: Text('No todos yet!'));
+                return Center(
+                  child: Text(
+                    'No todos yet!',
+                    style: Theme.of(contexts).textTheme.caption,
+                  ),
+                );
               }
             }
             return CupertinoScrollbar(

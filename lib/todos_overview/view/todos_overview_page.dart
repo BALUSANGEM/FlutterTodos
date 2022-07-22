@@ -125,9 +125,18 @@ class TodoListTitle extends StatelessWidget {
     final theme = Theme.of(context);
     final captionColor = theme.textTheme.caption?.color;
     return Dismissible(
-      key: Key('todolist_title_dismissable_${todo.id}'),
+      key: Key('todolist_title_dismissible_${todo.id}'),
       onDismissed: onDismissed,
       direction: DismissDirection.endToStart,
+      background: Container(
+        alignment: Alignment.centerRight,
+        color: theme.colorScheme.error,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: const Icon(
+          Icons.delete,
+          color: Colors.white60,
+        ),
+      ),
       child: ListTile(
         title: Text(
           todo.title,

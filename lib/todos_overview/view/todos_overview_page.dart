@@ -33,11 +33,33 @@ class TodosOverviewView extends StatelessWidget {
             listenWhen: (previous, current) =>
                 previous.status != current.status,
             listener: (context, state) {
-              if(state.status == TodoOverviewStatus.failure) {
+              if (state.status == TodoOverviewStatus.failure) {
                 ScaffoldMessenger.of(context)
-                    ..hideCurrentSnackBar()
-                    ..showSnackBar(const SnackBar(content: Text('Error!')));
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(const SnackBar(content: Text('Error!')));
               }
+            },
+          ),
+          BlocListener<TodosOverviewBloc, TodosOverViewState>(
+            listenWhen: (previous, current) =>
+                previous.lastDeletedTodo != current.lastDeletedTodo &&
+                current.lastDeletedTodo != null,
+            listener: (context, state) {
+              final messenger = ScaffoldMessenger.of(context);
+              messenger
+                ..hideCurrentSnackBar()
+                ..showSnackBar(SnackBar(
+                  content: const Text('Undo deletion'),
+                  action: SnackBarAction(
+                    label: 'Undo',
+                    onPressed: () {
+                      messenger.hideCurrentSnackBar();
+                      context
+                          .read<TodosOverviewBloc>()
+                          .add(const TodosOverviewUndoDeletionRequested());
+                    },
+                  ),
+                ));
             },
           )
         ],

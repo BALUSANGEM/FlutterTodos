@@ -86,10 +86,17 @@ class TodosOverviewView extends StatelessWidget {
                   TodoListTitle(
                     todo: todo,
                     onDismissed: (_) {
-
+                      context
+                          .read<TodosOverviewBloc>()
+                          .add(TodosOverviewTodoDeleted(todo: todo));
                     },
-                    onToggleCompleted: (_) {
-
+                    onToggleCompleted: (isCompleted) {
+                      context.read<TodosOverviewBloc>().add(
+                            TodosOverviewCompletionToggled(
+                              todo: todo,
+                              isCompleted: isCompleted,
+                            ),
+                          );
                     },
                   )
               ],

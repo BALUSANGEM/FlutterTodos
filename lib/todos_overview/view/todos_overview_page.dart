@@ -128,7 +128,33 @@ class TodoListTitle extends StatelessWidget {
       key: Key('todolist_title_dismissable_${todo.id}'),
       onDismissed: onDismissed,
       direction: DismissDirection.endToStart,
-      child: Text(todo.title),
+      child: ListTile(
+        title: Text(
+          todo.title,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: !todo.isCompleted
+              ? null
+              : TextStyle(
+                  color: captionColor,
+                  decoration: TextDecoration.lineThrough,
+                ),
+        ),
+        subtitle: Text(
+          todo.description,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
+        leading: Checkbox(
+          value: todo.isCompleted,
+          onChanged: onToggleCompleted == null
+              ? null
+              : (value) => onToggleCompleted!(value!),
+          shape: const ContinuousRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+          ),
+        ),
+      ),
     );
   }
 }

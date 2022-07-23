@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_todos/todos_overview/bloc/todos_overview_bloc.dart';
 
 enum TodosOverviewOption { toggleAll, allCompleted }
 
@@ -8,6 +10,8 @@ class TodosOverviewOptionsButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final todos = context.select((TodosOverviewBloc bloc) => bloc.state.todos);
+    final completedTodosCount = todos.where((todo) => todo.isCompleted).length;
     return PopupMenuButton<TodosOverviewOption>(
       shape: const ContinuousRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(16))),
@@ -17,11 +21,15 @@ class TodosOverviewOptionsButton extends StatelessWidget {
         return [
           PopupMenuItem(
             value: TodosOverviewOption.toggleAll,
-            child: child,
+            child: Text(
+              completedTodosCount == todos.length
+                  ? 'Mark all Incomplete'
+                  : 'Mark all Complete',
+            ),
           ),
           PopupMenuItem(
             value: TodosOverviewOption.allCompleted,
-            child: child,
+            child: Text('Clear completed'),
           )
         ];
       },

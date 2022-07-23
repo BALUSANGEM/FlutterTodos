@@ -8,8 +8,13 @@ class TodosOverviewOptionsButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return PopupMenuButton<TodosOverviewOption>(itemBuilder: itemBuilder)
+    return PopupMenuButton<TodosOverviewOption>(
+        shape: const ContinuousRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(16))
+        ),
+        tooltip: 'Todos overview',
+        icon: const Icon(Icons.more_vert_rounded),
+        itemBuilder: itemBuilder)
   }
 
 }

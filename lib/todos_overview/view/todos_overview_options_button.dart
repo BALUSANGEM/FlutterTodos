@@ -11,6 +11,7 @@ class TodosOverviewOptionsButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final todos = context.select((TodosOverviewBloc bloc) => bloc.state.todos);
+    final hasTodos = todos.isNotEmpty;
     final completedTodosCount = todos.where((todo) => todo.isCompleted).length;
     return PopupMenuButton<TodosOverviewOption>(
       shape: const ContinuousRectangleBorder(
@@ -21,6 +22,7 @@ class TodosOverviewOptionsButton extends StatelessWidget {
         return [
           PopupMenuItem(
             value: TodosOverviewOption.toggleAll,
+            enabled: hasTodos,
             child: Text(
               completedTodosCount == todos.length
                   ? 'Mark all Incomplete'
@@ -29,7 +31,8 @@ class TodosOverviewOptionsButton extends StatelessWidget {
           ),
           PopupMenuItem(
             value: TodosOverviewOption.allCompleted,
-            child: Text('Clear completed'),
+            enabled: hasTodos && completedTodosCount > 0,
+            child: const Text('Clear completed'),
           )
         ];
       },

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_todos/todos_overview/bloc/todos_overview_bloc.dart';
+import 'package:flutter_todos/todos_overview/view/view.dart';
 import 'package:todos_repository/todos_repository.dart';
 
 class TodosOverviewPage extends StatelessWidget {
@@ -26,6 +27,9 @@ class TodosOverviewView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Todos overview'),
+        actions: const [
+          TodosOverviewOptionsButton(),
+        ],
       ),
       body: MultiBlocListener(
         listeners: [

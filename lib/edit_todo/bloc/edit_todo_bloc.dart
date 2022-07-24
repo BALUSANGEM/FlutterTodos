@@ -28,18 +28,34 @@ class EditTodoBloc extends Bloc<EditTodoEvent, EditTodoState> {
 
   final TodosRepository _todosRepository;
 
-  FutureOr<void> _onTitleChanged(
+  void _onTitleChanged(
     EditTodoTitleChanged event,
     Emitter<EditTodoState> emit,
-  ) {}
+  ) {
+    emit(state.copyWith(title: event.title));
+  }
 
-  FutureOr<void> _onDescriptionChanged(
+  void _onDescriptionChanged(
     EditTodoDescriptionChanged event,
     Emitter<EditTodoState> emit,
-  ) {}
+  ) {
+    emit(state.copyWith(title: event.description));
+  }
 
-  FutureOr<void> _onSubmitted(
+  Future<void> _onSubmitted(
     EditTodoSubmitted event,
     Emitter<EditTodoState> emit,
-  ) {}
+  ) async {
+    emit(state.copyWith(status: EditTodoStatus.loading));
+    final todo = (state.initialTodo ?? Todo(title: '')).copyWith(
+      title: state.title,
+      description: state.description,
+    );
+    try {
+      await _todosRepository.saveTodo(todo);
+      emit(state.copyWith(status: EditTodoStatus.success));
+    } catch (exception) {
+      emit(state.copyWith(status: EditTodoStatus.failure));
+    }
+  }
 }

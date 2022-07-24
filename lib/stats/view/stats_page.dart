@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_todos/stats/bloc/stats_bloc.dart';
@@ -24,6 +23,34 @@ class StatsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = context.watch<StatsBloc>().state;
-    return Scaffold();
+    final textTheme = Theme.of(context).textTheme;
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Todo Stats'),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ListTile(
+            key: const Key('stats_view_completed_todos_count'),
+            leading: const Icon(Icons.check_rounded),
+            title: const Text('Completed todos'),
+            trailing: Text(
+              '${state.completedTodos}',
+              style: textTheme.headline5,
+            ),
+          ),
+          ListTile(
+            key: const Key('stats_view_active_todos_count'),
+            leading: const Icon(Icons.radio_button_unchecked_rounded),
+            title: const Text('Active todos'),
+            trailing: Text(
+              '${state.activeTodos}',
+              style: textTheme.headline5,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,6 +28,12 @@ class EditTodoView extends StatelessWidget {
     final isNewTodo = context.select(
       (EditTodoBloc bloc) => bloc.state.isNewTodo,
     );
+
+    final theme = Theme.of(context);
+    final floatingActionButtonTheme = theme.floatingActionButtonTheme;
+    final fabBackgroundColor = floatingActionButtonTheme.backgroundColor ??
+        theme.colorScheme.secondary;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(isNewTodo ? 'Add Todo' : 'Edit Todo'),
@@ -39,6 +46,12 @@ class EditTodoView extends StatelessWidget {
         onPressed: status.isLoadingOrSuccess
             ? null
             : () => context.read<EditTodoBloc>().add(const EditTodoSubmitted()),
+        backgroundColor: status.isLoadingOrSuccess
+            ? fabBackgroundColor.withOpacity(0.5)
+            : fabBackgroundColor,
+        child: status.isLoadingOrSuccess
+            ? const CupertinoActivityIndicator()
+            : const Icon(Icons.check_rounded),
       ),
     );
   }

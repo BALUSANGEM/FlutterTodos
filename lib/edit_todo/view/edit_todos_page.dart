@@ -30,6 +30,15 @@ class EditTodoView extends StatelessWidget {
       appBar: AppBar(
         title: Text(isNewTodo ? 'Add Todo' : 'Edit Todo'),
       ),
+      floatingActionButton: FloatingActionButton(
+        tooltip: 'Todo save',
+        shape: const ContinuousRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(32)),
+        ),
+        onPressed: () {
+
+        },
+      ),
     );
   }
 }

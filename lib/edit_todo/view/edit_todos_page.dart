@@ -53,6 +53,18 @@ class EditTodoView extends StatelessWidget {
             ? const CupertinoActivityIndicator()
             : const Icon(Icons.check_rounded),
       ),
+      body: CupertinoScrollbar(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

@@ -23,6 +23,7 @@ class EditTodoView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final status = context.select((EditTodoBloc bloc) => bloc.state.status);
     final isNewTodo = context.select(
       (EditTodoBloc bloc) => bloc.state.isNewTodo,
     );
@@ -35,9 +36,9 @@ class EditTodoView extends StatelessWidget {
         shape: const ContinuousRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(32)),
         ),
-        onPressed: () {
-
-        },
+        onPressed: status.isLoadingOrSuccess
+            ? null
+            : () => context.read<EditTodoBloc>().add(const EditTodoSubmitted()),
       ),
     );
   }

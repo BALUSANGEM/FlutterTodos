@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_todos/home/home_cubit.dart';
 import 'package:flutter_todos/home/view/view.dart';
+import 'package:flutter_todos/stats/stats.dart';
 import 'package:flutter_todos/todos_overview/view/view.dart';
 
 class HomePage extends StatelessWidget {
@@ -22,7 +23,7 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       body: IndexedStack(
         index: selectedTab.index,
-        children: const [TodosOverviewPage()],
+        children: const [TodosOverviewPage(), StatsPage()],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(

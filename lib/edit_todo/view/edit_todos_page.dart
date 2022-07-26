@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_todos/edit_todo/edit_todo.dart';
 import 'package:todos_repository/todos_repository.dart';
@@ -71,11 +72,37 @@ class EditTodoView extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
-              children: [],
+              children: [_TitleField()],
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class _TitleField extends StatelessWidget {
+  const _TitleField({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final state = context.watch<EditTodoBloc>().state;
+    final hintText = state.initialTodo?.title ?? '';
+    return TextFormField(
+      key: const Key('edit_todo_title_view_text_form_field'),
+      initialValue: state.title,
+      decoration: InputDecoration(
+        enabled: !state.status.isLoadingOrSuccess,
+        labelText: 'Add Title',
+        hintText: hintText,
+      ),
+      maxLength: 50,
+      inputFormatters: [
+        LengthLimitingTextInputFormatter(50),
+      ],
+      onChanged: (value) {
+        context.read<EditTodoBloc>().add(EditTodoTitleChanged(value));
+      },
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_todos/edit_todo/edit_todo.dart';
 import 'package:flutter_todos/home/home_cubit.dart';
 import 'package:flutter_todos/home/view/view.dart';
 import 'package:flutter_todos/stats/stats.dart';
@@ -28,7 +29,9 @@ class HomeView extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
           key: const Key('home_view_add_todo_fab'),
-          onPressed: () => {},
+          onPressed: () => {
+            Navigator.of(context).push(EditTodoPage.route())
+          },
           child: const Icon(Icons.add)),
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),

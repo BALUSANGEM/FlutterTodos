@@ -72,7 +72,7 @@ class EditTodoView extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
-              children: [_TitleField()],
+              children: const [_TitleField(), _DescriptionField()],
             ),
           ),
         ),
@@ -102,6 +102,34 @@ class _TitleField extends StatelessWidget {
       ],
       onChanged: (value) {
         context.read<EditTodoBloc>().add(EditTodoTitleChanged(value));
+      },
+    );
+  }
+}
+
+class _DescriptionField extends StatelessWidget {
+  const _DescriptionField({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final state = context.watch<EditTodoBloc>().state;
+    final hintText = state.initialTodo?.description ?? '';
+
+    return TextFormField(
+      key: const Key('edit_todo_description_view_text_form_field'),
+      initialValue: state.description,
+      decoration: InputDecoration(
+        enabled: !state.status.isLoadingOrSuccess,
+        labelText: 'Add Description',
+        hintText: hintText,
+      ),
+      maxLength: 300,
+      maxLines: 7,
+      inputFormatters: [
+        LengthLimitingTextInputFormatter(300),
+      ],
+      onChanged: (value) {
+        context.read<EditTodoBloc>().add(EditTodoDescriptionChanged(value));
       },
     );
   }

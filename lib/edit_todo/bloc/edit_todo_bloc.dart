@@ -39,7 +39,7 @@ class EditTodoBloc extends Bloc<EditTodoEvent, EditTodoState> {
     EditTodoDescriptionChanged event,
     Emitter<EditTodoState> emit,
   ) {
-    emit(state.copyWith(title: event.description));
+    emit(state.copyWith(description: event.description));
   }
 
   Future<void> _onSubmitted(

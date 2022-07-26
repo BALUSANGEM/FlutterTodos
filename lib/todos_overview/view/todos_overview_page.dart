@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_todos/edit_todo/edit_todo.dart';
 import 'package:flutter_todos/todos_overview/bloc/todos_overview_bloc.dart';
 import 'package:flutter_todos/todos_overview/view/view.dart';
 import 'package:todos_repository/todos_repository.dart';
@@ -84,27 +85,32 @@ class TodosOverviewView extends StatelessWidget {
               }
             }
             return CupertinoScrollbar(
-                child: ListView(
-              children: [
-                for (final todo in state.todos)
-                  TodoListTitle(
-                    todo: todo,
-                    onDismissed: (_) {
-                      context
-                          .read<TodosOverviewBloc>()
-                          .add(TodosOverviewTodoDeleted(todo: todo));
-                    },
-                    onToggleCompleted: (isCompleted) {
-                      context.read<TodosOverviewBloc>().add(
-                            TodosOverviewCompletionToggled(
-                              todo: todo,
-                              isCompleted: isCompleted,
-                            ),
-                          );
-                    },
-                  )
-              ],
-            ));
+              child: ListView(
+                children: [
+                  for (final todo in state.todos)
+                    TodoListTitle(
+                      todo: todo,
+                      onDismissed: (_) {
+                        context
+                            .read<TodosOverviewBloc>()
+                            .add(TodosOverviewTodoDeleted(todo: todo));
+                      },
+                      onToggleCompleted: (isCompleted) {
+                        context.read<TodosOverviewBloc>().add(
+                              TodosOverviewCompletionToggled(
+                                todo: todo,
+                                isCompleted: isCompleted,
+                              ),
+                            );
+                      },
+                      onTap: () {
+                        Navigator.of(context)
+                            .push(EditTodoPage.route(initialTodo: todo));
+                      },
+                    ),
+                ],
+              ),
+            );
           },
         ),
       ),
@@ -118,11 +124,13 @@ class TodoListTitle extends StatelessWidget {
     required this.todo,
     this.onToggleCompleted,
     this.onDismissed,
+    this.onTap,
   });
 
   final Todo todo;
   final ValueChanged<bool>? onToggleCompleted;
   final DismissDirectionCallback? onDismissed;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -142,6 +150,7 @@ class TodoListTitle extends StatelessWidget {
         ),
       ),
       child: ListTile(
+        onTap: onTap,
         title: Text(
           todo.title,
           maxLines: 1,
@@ -167,6 +176,7 @@ class TodoListTitle extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(8)),
           ),
         ),
+        trailing: onTap == null ? null : const Icon(Icons.chevron_right),
       ),
     );
   }

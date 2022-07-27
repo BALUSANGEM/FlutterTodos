@@ -18,6 +18,15 @@ class TodosOverviewOptionsButton extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(16))),
       tooltip: 'Todos overview',
       icon: const Icon(Icons.more_vert_rounded),
+      onSelected: (options) {
+        switch (options) {
+          case TodosOverviewOption.toggleAll:
+            context
+                .read<TodosOverviewBloc>()
+                .add(const TodosOverviewToggleAllRequested());
+            break;
+        }
+      },
       itemBuilder: (context) {
         return [
           PopupMenuItem(

@@ -10,6 +10,8 @@ class TodosOverViewState extends Equatable {
     this.filter = TodoOverViewFilter.all,
   });
 
+  Iterable<Todo> get filterTodos => filter.applyAll(todos);
+
   final TodoOverviewStatus status;
   final List<Todo> todos;
   final Todo? lastDeletedTodo;

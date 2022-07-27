@@ -88,7 +88,7 @@ class TodosOverviewView extends StatelessWidget {
             return CupertinoScrollbar(
               child: ListView(
                 children: [
-                  for (final todo in state.todos)
+                  for (final todo in state.filterTodos)
                     TodoListTitle(
                       todo: todo,
                       onDismissed: (_) {

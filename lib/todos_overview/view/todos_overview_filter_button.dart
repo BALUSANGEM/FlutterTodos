@@ -14,6 +14,11 @@ class TodosOverviewFilterButton extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(16)),
       ),
       initialValue: activeFilter,
+      onSelected: (filter) {
+        context
+            .read<TodosOverviewBloc>()
+            .add(TodosOverviewFilterChanged(filter));
+      },
       itemBuilder: (context) {
         return const [
           PopupMenuItem(

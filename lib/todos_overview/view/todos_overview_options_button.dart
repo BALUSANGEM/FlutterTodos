@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_todos/todos_overview/bloc/todos_overview_bloc.dart';
 
-enum TodosOverviewOption { toggleAll, allCompleted }
+enum TodosOverviewOption { toggleAll, clearCompleted }
 
 class TodosOverviewOptionsButton extends StatelessWidget {
   const TodosOverviewOptionsButton({super.key});
@@ -25,6 +25,11 @@ class TodosOverviewOptionsButton extends StatelessWidget {
                 .read<TodosOverviewBloc>()
                 .add(const TodosOverviewToggleAllRequested());
             break;
+          case TodosOverviewOption.clearCompleted:
+            context
+                .read<TodosOverviewBloc>()
+                .add(const TodosOverviewClearCompletedRequested());
+            break;
         }
       },
       itemBuilder: (context) {
@@ -39,7 +44,7 @@ class TodosOverviewOptionsButton extends StatelessWidget {
             ),
           ),
           PopupMenuItem(
-            value: TodosOverviewOption.allCompleted,
+            value: TodosOverviewOption.clearCompleted,
             enabled: hasTodos && completedTodosCount > 0,
             child: const Text('Clear completed'),
           )

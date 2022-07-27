@@ -29,6 +29,7 @@ class TodosOverviewView extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Todos overview'),
         actions: const [
+          TodosOverviewFilterButton(),
           TodosOverviewOptionsButton(),
         ],
       ),

@@ -20,6 +20,7 @@ class TodosOverviewBloc extends Bloc<TodosOverviewEvent, TodosOverViewState> {
     on<TodosOverviewUndoDeletionRequested>(_onTodoUndoDeleted);
     on<TodosOverviewToggleAllRequested>(_onTodoToggleAll);
     on<TodosOverviewClearCompletedRequested>(_onTodoClearCompleted);
+    on<TodosOverviewFilterChanged>(_onTodoFilterChanged);
   }
 
   final TodosRepository _todosRepository;
@@ -79,5 +80,12 @@ class TodosOverviewBloc extends Bloc<TodosOverviewEvent, TodosOverViewState> {
     Emitter<TodosOverViewState> emit,
   ) async {
     await _todosRepository.clearCompleted();
+  }
+
+  FutureOr<void> _onTodoFilterChanged(
+    TodosOverviewFilterChanged event,
+    Emitter<TodosOverViewState> emit,
+  ) {
+    emit(state.copyWith(filter: event.filter));
   }
 }

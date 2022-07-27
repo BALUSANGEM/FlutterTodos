@@ -42,3 +42,12 @@ class TodosOverviewToggleAllRequested extends TodosOverviewEvent {
 class TodosOverviewClearCompletedRequested extends TodosOverviewEvent {
   const TodosOverviewClearCompletedRequested();
 }
+
+class TodosOverviewFilterChanged extends TodosOverviewEvent {
+  const TodosOverviewFilterChanged(this.filter);
+
+  final TodoOverViewFilter filter;
+
+  @override
+  List<Object> get props => [filter];
+}

@@ -69,5 +69,25 @@ void main() {
         ],
       );
     });
+
+    group('TodosOverviewCompletionToggled', () {
+      blocTest<TodosOverviewBloc, TodosOverViewState>(
+        'saves todo with isCompleted set to event isCompleted flag',
+        build: buildBloc,
+        act: (bloc) => bloc.add(
+          TodosOverviewCompletionToggled(
+            todo: mockTodos.first,
+            isCompleted: true,
+          ),
+        ),
+        verify: (_) {
+          verify(
+            () => todosRepository.saveTodo(
+              mockTodos.first.copyWith(isCompleted: true),
+            ),
+          );
+        },
+      );
+    });
   });
 }

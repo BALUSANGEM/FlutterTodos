@@ -43,7 +43,7 @@ void main() {
       );
 
       blocTest<TodosOverviewBloc, TodosOverViewState>(
-        'Emits loading status and updated status and todos '
+        'Emits state with loading status and updated status and todos '
         'when getTodos stream emits new todos',
         build: buildBloc,
         act: (bloc) => bloc.add(const TodosOverviewSubscriptionRequested()),
@@ -53,6 +53,19 @@ void main() {
           ),
           TodosOverViewState(
               status: TodoOverviewStatus.success, todos: mockTodos),
+        ],
+      );
+
+      blocTest<TodosOverviewBloc, TodosOverViewState>(
+        'Emits state with failure status '
+        'when getTodos stream emits error',
+        act: (bloc) => bloc.add(const TodosOverviewSubscriptionRequested()),
+        build: buildBloc,
+        expect: () => [
+          const TodosOverViewState(
+            status: TodoOverviewStatus.loading,
+          ),
+          const TodosOverViewState(status: TodoOverviewStatus.failure),
         ],
       );
     });

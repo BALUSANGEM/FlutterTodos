@@ -16,6 +16,11 @@ void main() {
   ];
   group('TodosOverviewBloc', () {
     late TodosRepository todosRepository;
+
+    setUpAll(() {
+      registerFallbackValue(FakeTodo());
+    });
+
     setUp(() {
       todosRepository = MockTodoRepository();
       when(() => todosRepository.saveTodo(any())).thenAnswer((_) async {});

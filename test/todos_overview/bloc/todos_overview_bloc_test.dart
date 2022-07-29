@@ -89,5 +89,25 @@ void main() {
         },
       );
     });
+
+    group('TodosOverviewTodoDeleted', () {
+      blocTest<TodosOverviewBloc, TodosOverViewState>(
+        'Repository deletes todo',
+        setUp: () {
+          when(() => todosRepository.deleteTodo(any()))
+              .thenAnswer((_) async {});
+        },
+        build: buildBloc,
+        seed: () => TodosOverViewState(todos: mockTodos),
+        act: (bloc) => bloc.add(
+          TodosOverviewTodoDeleted(todo: mockTodos.first),
+        ),
+        verify: (_) {
+          verify(
+            () => todosRepository.deleteTodo(mockTodos.first.id),
+          ).called(1);
+        },
+      );
+    });
   });
 }

@@ -41,6 +41,20 @@ void main() {
           verify(() => todosRepository.getTodos()).called(1);
         },
       );
+
+      blocTest<TodosOverviewBloc, TodosOverViewState>(
+        'Emits loading status and updated status and todos '
+        'when getTodos stream emits new todos',
+        build: buildBloc,
+        act: (bloc) => bloc.add(const TodosOverviewSubscriptionRequested()),
+        expect: () => [
+          const TodosOverViewState(
+            status: TodoOverviewStatus.loading,
+          ),
+          TodosOverViewState(
+              status: TodoOverviewStatus.success, todos: mockTodos),
+        ],
+      );
     });
   });
 }
